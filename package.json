@@ -1,0 +1,39 @@
+{
+  "name": "absinthe-phoenix",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "typings": ["./dist/index.d.ts", "./dist.types.d.ts"],
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/absinthe-graphql/absinthe-phoenix-js.git"
+  },
+  "keywords": [
+    "graphql",
+    "absinthe",
+    "elixir",
+    "phoenix",
+    "subscriptions"
+  ],
+  "author": "Bruce Williams <brwcodes@gmail.com>",
+  "contributors": [
+    "Ben Wilson <benwilson512@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/absinthe-graphql/absinthe-phoenix-js/issues"
+  },
+  "homepage": "https://github.com/absinthe-graphql/absinthe-phoenix-js",
+  "scripts": {
+    "compile": "./node_modules/.bin/tsc -d"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.18",
+    "typescript": "^2.3.2"
+  },
+  "dependencies": {
+    "phoenix": "^1.2.1"
+  }
+}
