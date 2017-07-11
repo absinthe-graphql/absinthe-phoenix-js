@@ -6,7 +6,7 @@
     "target": "es5",
     "sourceMap": true,
     "strictNullChecks": true,
-    "outDir": "./dist",
+    "outDir": "./pkg/lib",
     "lib": ["dom", "esnext"]
   },
   "exclude": [

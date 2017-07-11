@@ -1,8 +1,11 @@
 {
   "name": "absinthe-phoenix",
-  "version": "0.0.1",
-  "main": "dist/index.js",
-  "typings": ["./dist/index.d.ts", "./dist.types.d.ts"],
+  "version": "0.0.8",
+  "main": "./pkg/dist/index.js",
+  "typings": [
+    "./pkg/dist/index.d.ts",
+    "./pkg/dist/index.types.d.ts"
+  ],
   "files": [
     "dist"
   ],
@@ -27,11 +30,20 @@
   },
   "homepage": "https://github.com/absinthe-graphql/absinthe-phoenix-js",
   "scripts": {
-    "compile": "./node_modules/.bin/tsc -d"
+    "bundle": "./node_modules/.bin/rollup -c",
+    "compile": "./node_modules/.bin/tsc -d",
+    "compile:browser": "./node_modules/.bin/webpack --config \"./unpkg-webpack.config.js\"",
+    "minify:browser": "./node_modules/.bin/uglifyjs -c -m -o ./pkg/lib/browser/index.min.js -- ./pkg/lib/browser/index.js",
+    "package": "./scripts/package.sh",
+    "publish": "./scripts/publish.sh",
+    "prepublish": "npm run package"
   },
   "devDependencies": {
     "@types/node": "^7.0.18",
-    "typescript": "^2.3.2"
+    "rollup": "^0.45.1",
+    "typescript": "^2.3.2",
+    "uglify-js": "^3.0.24",
+    "webpack": "^3.2.0"
   },
   "dependencies": {
     "phoenix": "^1.2.1"

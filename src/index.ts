@@ -33,7 +33,7 @@ export default class Client {
       this.socket.onOpen((event: Event) => {
         this.socket.onMessage(({event, payload, ref}) => {
           if (event === "subscription:data") {
-            this.dispatchSubscriptionCallback(payload)
+            this.findAndDispatchSubscriptionCallback(payload)
           }
         });
         this.channel = this.socket.channel(CHANNEL)
@@ -47,14 +47,19 @@ export default class Client {
     })
   }
 
-  dispatchSubscriptionCallback(data: SubscriptionPayload): boolean {
-    const callback = this.subscriptionRegistry[data.subscriptionId]
+  findAndDispatchSubscriptionCallback(payload: SubscriptionPayload): boolean {
+    const callback = this.subscriptionRegistry[payload.subscriptionId]
     if (callback) {
-      callback(data.result)
+      this.dispatchSubscriptionCallback(payload.result, callback)
       return true
     } else {
       return false
     }
+  }
+
+  // Override if postprocessing is needed
+  dispatchSubscriptionCallback(data: AbsintheResponse, callback: SubscriptionCallback): void {
+    callback(data);
   }
 
   registerSubscription(subscriptionId, callback): void {
