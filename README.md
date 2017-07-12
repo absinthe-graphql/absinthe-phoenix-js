@@ -2,16 +2,16 @@
 
 JavaScript support for Absinthe GraphQL subscriptions over Phoenix channels.
 
-## Experimental!
+## Examples
 
-Please note this is currently an experimental implementation. The API and
-featureset are subject to dramatic and catastrophic change at any time.
+The following examples configure a client that connects to a Phoenix socket at
+`"ws://localhost:4000/socket"`, sends a subscription to Absinthe operating there,
+and registers a callback to be invoked every time a result is broadcast for that
+subscription.
 
-Enjoy!
+### ES6 Example
 
-## Example
-
-Sadly this is what counts for documentation.
+From, for example, a React project:
 
 ```javascript
 // Import the client class
@@ -60,6 +60,19 @@ client.connect()
   })
   // Do something when you can't connect to the socket/channel
   .catch(e => console.error(`Couldn't connect`, e));
+```
+
+### Browser Example
+
+If you're using absinthe-phoenix as standalone, embedded dependency (eg, in
+your own GraphiQL), you can use unpkg, eg:
+
+```html
+<script src="//unpkg.com/absinthe-phoenix"></script>
+<script>
+  var client = new AbsinthePhoenix.default("ws://your.host/socket");
+  // Use client as above
+</script>
 ```
 
 ## Contributing
