@@ -30,7 +30,7 @@ export interface SubscriptionPayload {
 }
 
 export type SubscriptionCallback =
-  (result: AbsintheResponse) => void;
+  (payload: SubscriptionPayload) => void;
 
 export interface SubscriptionRegistry {
   [key: string]: SubscriptionCallback

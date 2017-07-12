@@ -44,22 +44,32 @@ client.connect()
     `;
 
     // Send the subscription. You can also pass, eg, `variables`, as an option.
-    client.subscribe({query: subscription}, response => {
+    client.subscribe({query: subscription}, ({ subscriptionId, data }) => {
 
       // Executed every time this subscription is broadcast.
       //
       // Put what you want to happen when data is received.
       // (If you're using React, this is likely using `setState()`)
       //
-      console.log('Got subscription data', response);
+      console.log(`Subscription Data [ID:${subscriptionId}]`, data);
     })
       // Log that you've subscribed, if you want to.
-      .then(() => console.log("Subscribed."))
+      .then(({ subscriptionId }) => {
+        console.log(`Subscription Created [ID:${subscriptionId}]`);
+      })
       // Do something with validation errors, etc.
-      .catch(e => console.error(`Couldn't subscribe`, e));
+      .catch(resp => console.error(`Subscription Failed`, resp));
   })
   // Do something when you can't connect to the socket/channel
   .catch(e => console.error(`Couldn't connect`, e));
+```
+
+To unsubscribe:
+
+```javascript
+client.unsubscribe(subscriptionId)
+  .then(() => console.log(`Subscription Removed [ID: ${subscriptionId}]`))
+  .catch(resp => console.error(`Couldn't Unsubscribe`, resp));
 ```
 
 ### Browser Example
@@ -71,9 +81,12 @@ your own GraphiQL), you can use unpkg, eg:
 <script src="//unpkg.com/absinthe-phoenix"></script>
 <script>
   var client = new AbsinthePhoenix.default("ws://your.host/socket");
-  // Use client as above
+  // Use client similar to ES6 example
 </script>
 ```
+
+Note you may want to use a specific version of `absinthe-phoenix` from unpkg,
+eg, `//unpkg.com/absinthe-phoenix@0.1.0`.
 
 ## Contributing
 
