@@ -50,7 +50,7 @@ export default class Client {
   findAndDispatchSubscriptionCallback(payload: SubscriptionPayload): boolean {
     const callback = this.subscriptionRegistry[payload.subscriptionId]
     if (callback) {
-      this.dispatchSubscriptionCallback(payload.result, callback)
+      this.dispatchSubscriptionCallback(payload, callback)
       return true
     } else {
       return false
@@ -58,12 +58,16 @@ export default class Client {
   }
 
   // Override if postprocessing is needed
-  dispatchSubscriptionCallback(data: AbsintheResponse, callback: SubscriptionCallback): void {
-    callback(data);
+  dispatchSubscriptionCallback(payload: SubscriptionPayload, callback: SubscriptionCallback): void {
+    callback(payload);
   }
 
   registerSubscription(subscriptionId, callback): void {
     this.subscriptionRegistry[subscriptionId] = callback
+  }
+
+  unregisterSubscription(subscriptionId): void {
+    delete this.subscriptionRegistry[subscriptionId];
   }
 
   subscribe(request: AbsintheRequest, callback: SubscriptionCallback): Promise<Event> {
@@ -77,6 +81,18 @@ export default class Client {
             this.registerSubscription(resp.subscriptionId, callback);
             resolve(resp)
           }
+        })
+        .receive("error", e => reject(e))
+        .receive("timeout", () => reject("timeout"))
+    })
+  }
+
+  unsubscribe(subscriptionId): Promise<Event> {
+    return new Promise((resolve, reject) => {
+      this.channel.push("unsubscribe", { subscriptionId })
+        .receive("ok", resp => {
+          this.unregisterSubscription(subscriptionId)
+          resolve(resp)
         })
         .receive("error", e => reject(e))
         .receive("timeout", () => reject("timeout"))
