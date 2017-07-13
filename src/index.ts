@@ -11,7 +11,7 @@ import {
 
 const CHANNEL: string = '__absinthe__:control'
 
-export default class Client {
+export class Client {
   private url: string
   private options: Options
   private socket: Socket
@@ -47,29 +47,6 @@ export default class Client {
     })
   }
 
-  findAndDispatchSubscriptionCallback(payload: SubscriptionPayload): boolean {
-    const callback = this.subscriptionRegistry[payload.subscriptionId]
-    if (callback) {
-      this.dispatchSubscriptionCallback(payload, callback)
-      return true
-    } else {
-      return false
-    }
-  }
-
-  // Override if postprocessing is needed
-  dispatchSubscriptionCallback(payload: SubscriptionPayload, callback: SubscriptionCallback): void {
-    callback(payload);
-  }
-
-  registerSubscription(subscriptionId, callback): void {
-    this.subscriptionRegistry[subscriptionId] = callback
-  }
-
-  unregisterSubscription(subscriptionId): void {
-    delete this.subscriptionRegistry[subscriptionId];
-  }
-
   subscribe(request: AbsintheRequest, callback: SubscriptionCallback): Promise<Event> {
     return new Promise((resolve, reject) => {
       const normalizedQuery = this.normalizeQuery(request.query);
@@ -99,7 +76,30 @@ export default class Client {
     })
   }
 
-  normalizeQuery(query: any): string {
+  private findAndDispatchSubscriptionCallback(payload: SubscriptionPayload): boolean {
+    const callback = this.subscriptionRegistry[payload.subscriptionId]
+    if (callback) {
+      this.dispatchSubscriptionCallback(payload, callback)
+      return true
+    } else {
+      return false
+    }
+  }
+
+  // Override if postprocessing is needed
+  private dispatchSubscriptionCallback(payload: SubscriptionPayload, callback: SubscriptionCallback): void {
+    callback(payload);
+  }
+
+  private registerSubscription(subscriptionId, callback): void {
+    this.subscriptionRegistry[subscriptionId] = callback
+  }
+
+  private unregisterSubscription(subscriptionId): void {
+    delete this.subscriptionRegistry[subscriptionId];
+  }
+
+  private normalizeQuery(query: any): string {
     if (typeof(query) === "string") {
       return query;
     } else if (typeof(query) === "object" && query.loc) {
@@ -111,3 +111,5 @@ export default class Client {
   }
 
 }
+
+export { Client as default }
