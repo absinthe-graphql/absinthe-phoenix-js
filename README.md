@@ -44,14 +44,14 @@ client.connect()
     `;
 
     // Send the subscription. You can also pass, eg, `variables`, as an option.
-    client.subscribe({query: subscription}, ({ subscriptionId, data }) => {
+    client.subscribe({query: subscription}, ({ subscriptionId, result }) => {
 
       // Executed every time this subscription is broadcast.
       //
       // Put what you want to happen when data is received.
       // (If you're using React, this is likely using `setState()`)
       //
-      console.log(`Subscription Data [ID:${subscriptionId}]`, data);
+      console.log(`Subscription Data [ID:${subscriptionId}]`, result);
     })
       // Log that you've subscribed, if you want to.
       .then(({ subscriptionId }) => {
