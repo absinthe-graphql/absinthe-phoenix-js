@@ -1,13 +1,10 @@
 {
   "name": "absinthe-phoenix",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./pkg/dist/index.js",
   "typings": [
     "./pkg/dist/index.d.ts",
     "./pkg/dist/index.types.d.ts"
-  ],
-  "files": [
-    "dist"
   ],
   "repository": {
     "type": "git",
@@ -36,7 +33,9 @@
     "minify:browser": "./node_modules/.bin/uglifyjs -c -m -o ./pkg/lib/browser/index.min.js -- ./pkg/lib/browser/index.js",
     "package": "./scripts/package.sh",
     "publish": "./scripts/publish.sh",
-    "prepublish": "npm run package"
+    "prepublish": "npm run package",
+    "clean": "rm -fR ./pkg",
+    "precompile": "npm run clean"
   },
   "devDependencies": {
     "@types/node": "^7.0.18",

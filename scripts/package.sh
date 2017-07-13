@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-# Clear the built output
-rm -rf ./pkg
-
 # Add the version
 node -e "var package = require('./package.json'); \
     var fs = require('fs');
