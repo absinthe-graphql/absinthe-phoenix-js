@@ -80,7 +80,7 @@ your own GraphiQL), you can use unpkg, eg:
 ```html
 <script src="//unpkg.com/absinthe-phoenix"></script>
 <script>
-  var client = new AbsinthePhoenix.default("ws://your.host/socket");
+  var client = new AbsinthePhoenix.Client("ws://your.host/socket");
   // Use client similar to ES6 example
 </script>
 ```
