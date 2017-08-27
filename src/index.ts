@@ -47,6 +47,10 @@ export class Client {
     })
   }
 
+  close(): void {
+    this.socket.disconnect()
+  }
+
   subscribe(request: AbsintheRequest, callback: SubscriptionCallback): Promise<Event> {
     return new Promise((resolve, reject) => {
       const normalizedQuery = this.normalizeQuery(request.query);
