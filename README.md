@@ -1,5 +1,7 @@
 # absinthe-phoenix
 
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 JavaScript support for Absinthe GraphQL subscriptions over Phoenix channels.
 
 ## Examples
@@ -96,4 +98,4 @@ code from more experienced TypeScript developers!
 
 ## License
 
-See [LICENSE.md](/.LICENSE.md).
+See [LICENSE.md](./LICENSE.md).
