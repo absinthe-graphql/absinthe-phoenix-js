@@ -4,6 +4,10 @@
 
 JavaScript support for Absinthe GraphQL subscriptions over Phoenix channels.
 
+## DEPRECATED
+
+Superseded by [@absinthe/socket](https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/socket).
+
 ## Examples
 
 The following examples configure a client that connects to a Phoenix socket at
